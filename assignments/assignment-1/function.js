@@ -9,11 +9,13 @@ String.prototype.reverse = function () {
 String.prototype.removeVowels = function () {
     const vowels = "aouie";
     let str = "";
-    for (let i = 0; i, this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
+        // Replace ',' with '<'
         if (!vowels.includes(this[i])) {
             str += this[i];
         }
     }
     return str;
 };
+
 console.log("Hello".removeVowels());
