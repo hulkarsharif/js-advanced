@@ -51,4 +51,15 @@ class Inventory {
         }
         return matchedGoods;
     }
+    applyDiscount(percent) {
+        this.goods[i].price ===
+            this.goods[i].price - this.goods[i].price * (percent / 100);
+    }
+    generateSalesReport() {
+        let totalRevenue = 0;
+        let totalSoldItems = 0;
+        totalRevenue = this.goods[i].quantity += this.goods[i].price;
+        totalSoldItems += this.goods[i].quantity;
+        const averagePrice = totalRevenue / totalSoldItems;
+    }
 }
