@@ -15,16 +15,30 @@ magicCipher("where are you?", { v: "l", "?": "!" }); // "where are you!"
 magicCipher("twmce", { m: "n", t: "d", w: "a" }); //  "dance"
 console.log("_______________________________________");
 
-function hipsterfy(sentence) {
-    let word = sentence.split(" ");
-    let vowel = "aoiue";
-    for (let i = 0; i < sentence.length; i++) {
-        if (!vowel.includes(word[i])) {
-            word++;
+function removeLastVowel(word) {
+    let vowel = "aeiou";
+    for (let i = word.length - 1; i >= 0; i--) {
+        if (vowel.includes(word[i])) {
+            return word.slice(0, i) + word.slice(i + 1);
         }
     }
     return word;
 }
+
+function hipsterfy(sentence) {
+    let words = sentence.split(" ");
+    for (let j = 0; j < words.length; j++) {
+        let word = words[j];
+        words[j] = removeLastVowel(word);
+    }
+    return words.join(" ");
+}
+
+// // Example
+
+console.log(hipsterfy("proper"));
+console.log(hipsterfy("proper tonic panther"));
+console.log(hipsterfy("towel flicker banana"));
 
 console.log(hipsterfy("proper")); // Output: "propr"
 console.log(hipsterfy("proper tonic panther")); // Output: "propr tonc panthr"
@@ -43,8 +57,8 @@ function countAdjacentSums(arr, n) {
     return count;
 }
 console.log(countAdjacentSums([1, 5, 1], 6)); // Output: 2
-console.log(countAdjacentSums([7, 2, 4, 6], 7)); // Output: 0
-console.log(countAdjacentSums([6, 7, 11, 2, 5, 10, 3], 13));
+console.log(countAdjacentSums([7, 2, 4, 6], 7)); // Output: 0//i=0=7; i=1=2
+console.log(countAdjacentSums([6, 5, 11, 2, 5, 10, 3], 13));
 console.log("_______________________________________");
 
 function longestLetterStreak(str, searchLetters) {
@@ -72,10 +86,21 @@ console.log("_______________________________________");
 
 function inPigLatin(sentence) {
     let words = sentence.split(" ");
-    let consonants = "qwrtyplkjhgfdszxcvbnm";
-    for (let i = 0; i < sentence.length; i++) {
-        if (consonants.includes(words[i])) {
-            return words + "ay";
+    let vowel = "aeouiAEOUI";
+    let newWord = [];
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        let firstLetter = word[0];
+        if (vowel.includes(firstLetter)) {
+            return newWord.push(word + "ay");
+        } else {
+            let firstVowelIndex = -1;
+            for (leti = 0; i < word.length; i++) {
+                if (vowel.includes(words[i])) {
+                    firstVowelIndex = i;
+                    break;
+                }
+            }
         }
     }
     return words;

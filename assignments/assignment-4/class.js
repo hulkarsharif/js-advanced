@@ -9,7 +9,7 @@ class Person {
         Person.instanceCount++;
     }
     introduceYourself() {
-        console.log(`Hello, my name is ${this.name}.`);
+        console.log(`Hello, my name is ${this.name}`);
     }
     getRole() {
         return "Person";
@@ -18,40 +18,40 @@ class Person {
         return Person.instanceCount;
     }
 }
-// constructor(name: string): This method will be used to construct a new Student instance with a name. The student should also have an empty GradeBook upon creation.
-// introduceYourself(): This method should console log a student-specific self-introduction, such as "Hello, my name is (name) and I am a student". This method overrides the introduceYourself() from the Person class.
-// getGradeBook(): This method should return the student's GradeBook. The GradeBook is an instance of the GradeBook class which is a collection of subjects and grades.
-// getGrade(subject: string): This method should return an array of grades that the student received for a specific subject. If the subject does not exist in the GradeBook, it should return an empty array.
-// schoolUniform(): This method should return a standard student attire such as "School shirt and pants".
-// getRole(): This method should return 'Student' indicating the role of this instance. This method overrides the getRole() from the Person class.
-// countInstances(): This static method should keep track of how many instances of the Student class have been created.
-class Student extends Person {
-    static instanceCount = 0;
+// constructor(): This method will be used to construct a new GradeBook instance. The GradeBook should be an empty object upon creation.
+// addGrade(subject: string, grade: number): This method is used to add a grade for a specific subject. If the subject doesn't exist in the GradeBook, it should create an array for the subject.
+// getGrades(subject: string): This method should return an array of grades for a specific subject. If there are no grades for that subject, it should return an empty array.
+// getAllGrades(): This method should return the whole GradeBook which is an object where each property is a subject and the value is an array of grades.
+// format(): This static method should return a format for storing grades in the GradeBook.
 
-    constructor(name) {
-        super(name);
-        Student.InstanceCount++;
+class GradeBook {
+    constructor() {
+        this.grades = {};
     }
-    introduceYourself() {
-        console.log(`Hello, my name is ${this.name} and I am a student.`);
+
+    addGrade(subject, grade) {
+        if (!this.grades[subject]) {
+            this.grades[subject] = [];
+        }
+        this.grades[subject].push[grade];
     }
-    getGradeBook() {
-        return this.gradeBook;
+    getGrades(subject) {
+        if (!this.grades[subject]) {
+            return this.grades[subject];
+        } else {
+            return [];
+        }
     }
-    getGrade(subject) {
-        return this.gradeBook.getGrades(subject);
+
+    getAllGrades() {
+        return this.grades;
     }
-    schoolUniform() {
-        return "School shirt and pants";
-    }
-    getRole() {
-        return "Student";
-    }
-    static incrementInstanceCount() {
-        Student.instanceCount++;
-    }
-    static countInstances() {
-        return Student.instanceCount;
+
+    static format() {
+        return {
+            subject: "",
+            grade: 0
+        };
     }
 }
 // constructor(name: string, subject: string): This method will be used to construct a new Teacher instance with a name and a subject that they teach. The subject should be a string value.
@@ -64,15 +64,14 @@ class Student extends Person {
 // countInstances(): This static method should keep track of how many instances of the Teacher class have been created.
 class Teacher extends Person {
     static instanceCount = 0;
-
     constructor(name, subject) {
         super(name);
         this.subject = subject;
-        Teacher.InstanceCount++;
+        Teacher.instanceCount++;
     }
     introduceYourself() {
         console.log(
-            `Hello, my name is ${this.name} and I teach ${this.subject}.`
+            `Hello, my name is ${this.name} and I teach ${this.subject}`
         );
     }
     teach(student, grade) {
@@ -92,5 +91,33 @@ class Teacher extends Person {
     }
     static countInstances() {
         return Teacher.instanceCount;
+    }
+}
+
+class School {
+    constructor(name) {
+        this.name = name;
+        this.students = [];
+        this.teachers = [];
+    }
+    enroll(student) {
+        if (student.instanceOf.Student) {
+            this.students.push(student);
+        }
+    }
+    expel(student) {
+        if (student.instanceOf.Student) {
+            this.students.splice(this.students.indexOf(student), 1);
+        }
+    }
+    hire(teacher) {
+        if (teacher instanceof Teacher) {
+            this.teachers.push(teacher);
+        }
+    }
+    fire(teacher) {
+        if (teacher instanceof Teacher) {
+            this.teachers.splice(this.teachers.indexOf(teacher), 1);
+        }
     }
 }
