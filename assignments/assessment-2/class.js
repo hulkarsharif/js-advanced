@@ -21,18 +21,18 @@ class Inventory {
     }
     removeGood(id) {
         for (let i = 0; i < this.goods.length; i++) {
-            if (this.goods[i].id !== id) {
+            const singleGood = this.goods[i];
+
+            if (singleGood.id !== id) {
                 throw new Error("Good not found in the inventory.");
-                this.goods.splice(i, 1);
             }
         }
-        throw new Error("This good does not exist in the inventory.");
+        this.goods.splice(i, 1);
     }
 
     updateGood(id, updatedGood) {
         for (let i = 0; i < this.goods.length; i++) {
             if (this.goods[i].id === id) {
-                this.name = updatedGood.name;
                 this.quantity = updatedGood.quantity;
                 this.price = updatedGood.price;
             }
@@ -45,7 +45,7 @@ class Inventory {
     searchGoodByName(name) {
         let matchedGoods = [];
         for (let i = 0; i < this.goods.length; i++) {
-            if (this.goods[i].name.toLowercase().inludes(name.toLowercase())) {
+            if (this.goods[i].name.toLowercase() === name.toLowercase()) {
                 matchedGoods.push(this.goods[i]);
             }
         }
@@ -62,4 +62,27 @@ class Inventory {
         totalSoldItems += this.goods[i].quantity;
         const averagePrice = totalRevenue / totalSoldItems;
     }
+
+    sellGood(id, quantity) {
+        if (this.goods[i].id === id) {
+            if (this.goods[i].quantity >= quantity) {
+                this.goods[i].quantity--;
+            }
+        } else {
+            throw new Error("Not enough quantity in stock.");
+        }
+    }
 }
+const inventory = new Inventory();
+const apple = new Good(1, "Apple", 50, 0.5);
+inventory.addGood.apple;
+inventory.removeGood(1);
+inventory.updateGood(1, updatedApple);
+const result = inventory.searchGoodByName("Apple");
+inventory.applyDiscount(10);
+const report = inventory.generateSalesReport();
+inventory.sellGood(1, 5);
+
+console.log(inventory.addGood());
+console.log(inventory.viewGoods());
+console.log(inventory);

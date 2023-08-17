@@ -35,11 +35,7 @@ const mathOperations = (a, b) => {
     return { add: add, multiply: multiply };
 };
 
-const createMultiplier = (multiplier) => {
-    return function (number) {
-        return number * multiplier;
-    };
-};
+const createMultiplier = (multiplier) => (number) => number * multiplier;
 
 const stringManipulation = (str, operation1, operation2) => {
     return operation2(operation1(str));

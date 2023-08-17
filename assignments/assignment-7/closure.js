@@ -36,6 +36,7 @@ function greet(name) {
 const greetJohn = greet("John");
 console.log(greetJohn("Morning"));
 
+//4
 function interestCalculator(rate) {
     return function (amount) {
         return (rate / 100) * amount;
@@ -44,9 +45,10 @@ function interestCalculator(rate) {
 const simpleInterest = interestCalculator(5);
 console.log(simpleInterest(1000)); // 50
 
+//5
 function multiplier(factor) {
-    return function (num) {
-        return factor * 5;
+    return function (anyaNum) {
+        return factor * anyaNum;
     };
 }
 const double = multiplier(2);
@@ -88,7 +90,10 @@ function personalLibrary() {
             library.push(book);
         },
         remove: function (book) {
-            library.shift(book);
+            const index = library.indexOf(book);
+            if (index !== -1) {
+                library.splice(index, 1);
+            }
         },
         list: function () {
             return book;

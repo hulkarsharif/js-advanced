@@ -1,90 +1,112 @@
-function filterNums(nums, cb) {
-    const odd = [];
-    let i = 0;
-    while (i < nums.length) {
-        if (cb(nums[i])) {
-            odd.push(nums[i]);
+function filterNumbers(numbers, callback) {
+    const result = [];
+    for (let i = 0; i < numbers.length; i++) {
+        if (callback(numbers[i])) {
+            result.push(numbers[i]);
         }
-        i++;
     }
-    return odd;
+    return result;
+}
+//.2.
+
+function isOdd(number) {
+    return number % 2 !== 0;
 }
 
-function isOddNumbers(nums) {
-    return nums % 2 !== 0;
-}
-function isDevisibleByThree(nums) {
-    return nums % 3 === 0;
+const oddNumbers = filterNumbers([1, 2, 3, 4, 5], isOdd);
+//.3
+function isDivisibleByThree(number) {
+    return number % 3 === 0;
 }
 
-function isPrimeNumber(num) {
-    if (num <= 1) {
-        return false;
+const divisibleByThreeNumbers = filterNumbers(
+    [3, 6, 7, 9, 12],
+    isDivisibleByThree
+);
+//4.
+function isPrime(number) {
+    for (let i = 2; i < number; i++) {
+        if (number % i === 0) return false;
     }
-    let i = 2;
-
-    while (i < num) {
-        if (num % i === 0) {
-            return false;
-        }
-        i++;
-    }
-    return true;
+    return number !== 1;
+}
+const primeNumbers = filterNumbers([2, 3, 4, 5, 6], isPrime);
+//5.
+function isPerfectSquare(number) {
+    return Math.sqrt(number) % 1 === 0;
 }
 
-function isPerfectSquare(num) {
-    return Math.sqrt(num) === Math.floor(Math.sqrt(num));
-}
+const perfectSquares = filterNumbers([1, 4, 5, 9, 16], isPerfectSquare);
+
 // console.log(filterNums([1, 2, 3, 4, 5, 6, 7], isOddNumbers));
 // console.log(filterNums([1, 2, 3, 4, 5, 6, 0], isDevisibleByThree));
 // console.log(filterNums([2, 3, 4, 5, 6], isPrimeNumber));
 // console.log(filterNums([1, 4, 5, 9, 16], isPerfectSquare));
 
 //Part2=========== Callback//
-function filterWords(arr, cb) {
-    let result = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (cb(arr[i])) {
-            result.push(arr[i]);
+function filterStrings(strings, callback) {
+    const result = [];
+    for (let i = 0; i < strings.length; i++) {
+        if (callback(strings[i])) {
+            result.push(strings[i]);
         }
     }
     return result;
 }
+function isPalindrome(word) {
+    return word === word.split("").reverse().join("");
+}
 
-function isPalindrome(arr) {
-    return arr.toLowerCase() === arr.toLowerCase().split("").reverse().join("");
+function filterPalindromes(strings) {
+    return filterStrings(strings, isPalindrome);
 }
-function isLowerCase(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr.includes(arr[i].toUpperCase())) {
-            return false;
-        }
-    }
-    return true;
+
+function isLowerCase(word) {
+    return word === word.toLowerCase();
 }
-function isConsonantWord(word) {
+
+function filterLowerCase(strings) {
+    return filterStrings(strings, isLowerCase);
+}
+function isOnlyConsonantWord(word) {
     const vowels = "aeiou";
     for (let i = 0; i < word.length; i++) {
-        if (vowels.includes(word[i].toLowerCase())) {
+        const char = word[i];
+        if (vowels.includes(char)) {
             return false;
         }
     }
     return true;
+}
+
+function filterConsonantWords(strings) {
+    return filterStrings(strings, isOnlyConsonantWord);
 }
 function isOneVowelWord(word) {
     const vowels = "aeiou";
-    let vowelCount = 0;
+    let counter = 0;
+
     for (let i = 0; i < word.length; i++) {
-        if (vowels.includes(word[i].toLowerCase())) {
-            vowelCount++;
+        if (vowels.includes(word[i])) {
+            counter++;
+            if (counter > 1) {
+                return false;
+            }
         }
     }
-    return vowelCount === 1;
+    return counter === 1;
 }
 
-console.log(filterWords(["racecar", "madam", "apple"], isPalindrome));
-console.log(filterWords(["apple", "Banana", "cherry"], isLowerCase));
+function filterOneVowelWords(strings) {
+    return filterStrings(strings, isOneVowelWord);
+}
+
+console.log(filterStrings(["racecar", "madam", "apple"], isPalindrome));
+console.log(filterStrings(["apple", "Banana", "cherry"], isLowerCase));
 console.log(
-    filterWords(["rhythm", "sky", "fly", "apple", "HELLO"], isConsonantWord)
+    filterStrings(
+        ["rhythm", "sky", "fly", "apple", "HELLO"],
+        isOnlyConsonantWord
+    )
 );
-console.log(filterWords(["cat", "dog", "Apple", "All"], isOneVowelWord));
+console.log(filterStrings(["cat", "dog", "Apple", "All"], isOneVowelWord));
