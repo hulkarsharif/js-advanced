@@ -1,31 +1,26 @@
-// const fruits = ["apple", "banana", "cherry", "kiwi"];
-// fruits.forEach(function (fruit, index, array) {
-//     console.log(`Fruit ${index + 1} of ${array.length} is ${fruit}`);
-// });
-// Output:
-// Fruit 1 of 3 is apple
-// Fruit 2 of 3 is banana
-// Fruit 3 of 3 is cherry
+function filterOddNumbers(arr) {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 !== 0) {
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
 
-const numbers = [1, 2, 3];
-const doubled = numbers.map(function (number) {
-    return number * 2;
-});
-console.log(doubled); // Output: [2, 4, 6]
+// console.log(filterOddNumbers([1, 2, 3, 4, 5])); // Output: [1, 3, 5]
+//refactoring
+function filterNumbers(arr, callback) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (callback(arr[i])) {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+function isOdd(arr) {
+    return arr % 2 !== 0;
+}
 
-const fruits = ["apple", "banana", "cherry"];
-const mappedFruits = fruits.map(function (fruit, index, array) {
-    return `${fruit} (${index + 1} of ${array.length})`;
-});
-// console.log(mappedFruits);
-// // Output: ['apple (1 of 3)', 'banana (2 of 3)', 'cherry (3 of 3)']
-// const grades = [60, 70, 80];
-// const increasedGrades = [];
-// for (let i = 0; i < grades.length; i++) {
-//     increasedGrades[i] = grades[i] * 1.1;
-
-const grades = [60, 70, 80];
-const increasedGrades = grades.map(function (grade) {
-    return grade * 1.1;
-});
-console.log(increasedGrades); // Output: [66, 77, 88]
+console.log(filterNumbers([1, 2, 3, 4, 5], isOdd)); // Output: [1, 3, 5]
