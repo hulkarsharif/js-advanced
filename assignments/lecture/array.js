@@ -337,11 +337,32 @@ console.log("-----------");
 // ];
 // console.log(isArr(isNum, 5));
 
-const ages = [5, 23, 14, 30, 21];
-console.log(ages);
-const adults = ages.filter((age) => age !== 14);
-console.log(adults);
+function createInventorySystem() {
+    const items = [];
 
-const marks = [80, 85, 70, 90, 86];
-const total = marks.reduce((total, currentValue) => total + currentValue);
-console.log(total);
+    return {
+        addItem(item) {
+            items.push(item);
+        },
+        removeItem(item) {
+            const index = items.indexOf(item);
+            if (index !== -1) {
+                items.splice(index, 1);
+            }
+        },
+        getItems() {
+            return items.slice();
+        }
+    };
+}
+
+const inventorySystem = createInventorySystem();
+
+inventorySystem.addItem("Apple");
+inventorySystem.addItem("Banana");
+const items = inventorySystem.getItems();
+console.log(items);
+
+inventorySystem.removeItem("Apple");
+const updatedItems = inventorySystem.getItems();
+console.log(updatedItems);

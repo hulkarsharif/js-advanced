@@ -175,28 +175,57 @@ console.log(filterBooks(books, "Fiction", 4.0, [1900, 2000]));
 // getItems(): Retrieves all items from the collection.
 // Return Value: The function should return an object containing the public methods that allow interaction with the private data.
 function createInventorySystem() {
-    let result = [];
-    function addItem(item) {
-        result.push(item);
-    }
-    function removeItem(item1) {
-        const str = result.indexOf(item1);
-        if (str !== 1) {
-            result.splice(str, 1);
+    let sum = [];
+
+    return {
+        addItem(item) {
+            sum.push(item);
+        },
+        removeItem(item) {
+            const index = sum.indexOf(item);
+            if (index !== -1) {
+                sum.splice(index, 1);
+            }
+        },
+        getItems() {
+            return sum.slice();
         }
-        function getItems() {
-            return result.slice();
-        }
-    }
-    return { addItem, removeItem, getItems };
+    };
 }
+
 const inventorySystem = createInventorySystem();
 
 inventorySystem.addItem("Apple");
 inventorySystem.addItem("Banana");
-const items = inventorySystem.getItems();
-console.log(items); // Returns: ["Apple", "Banana"]
+const sum = inventorySystem.getItems(); // Returns: ["Apple", "Banana"]
+console.log(sum);
 
 inventorySystem.removeItem("Apple");
-const updatedItems = inventorySystem.getItems();
+const updatedItems = inventorySystem.getItems(); // Returns: ["Banana"]
 console.log(updatedItems);
+
+function checkWinner(game) {
+    const countBoard = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+
+        [0, 4, 8],
+        [6, 4, 2]
+    ];
+
+    for (let i = 0; i < countBoard.length; i++) {
+        const [tic, tac, toe] = countBoard[i];
+        if (game[tic] && game[tic] === game[tac] && game[tic] === game[toe]) {
+            return game[tic];
+        }
+    }
+    return null;
+}
+const gameBoard = ["X", "O", "X", "X", "X", "O", "O", "O", "X"];
+
+console.log(checkWinner(gameBoard));
