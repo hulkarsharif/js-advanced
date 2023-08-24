@@ -1,45 +1,44 @@
-function Pet(name, hunger, happiness) {
+function Pet(name) {
     this.name = name;
-    this.hunger = hunger;
-    this.happiness = happiness;
+    this.hunger = 0;
+    this.happiness = 10;
 }
 
 Pet.prototype.eat = function () {
-    this.happiness++;
+    this.happiness += 1;
     if (this.hunger - 1 >= 0) {
-        this.hunger--;
+        this.hunger -= 1;
     }
 };
-
 Pet.prototype.play = function () {
-    this.happiness += 1;
-    this.hunger += 2;
+    if (this.happiness + 2 <= 10) {
+        this.happiness += 2;
+    }
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
-
 Pet.prototype.sleep = function () {
-    this.hunger++;
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
 
 Pet.prototype.status = function () {
-    if (this.hunger < 3) {
-        return `${this.name} is really hungry`;
+    if (this.happiness >= 8) {
+        return `${this.name} is feeling great!`;
+    } else if (this.happiness >= 5) {
+        return `${this.name} is really hungry!`;
     }
-    return `${this.name} is feeling great!"`;
 };
 
 Pet.prototype.getOlder = function () {
-    this.happiness -= 1;
-    this.hunger += 1;
-};
-
-Pet.prototype.introduce = function () {
-    return `Hey I am ${this.name} and my  happiness level is ${this.happiness}, humger is  ${this.hunger} `;
-};
-
-Pet.prototype.timeOut = function () {
-    const initialHappiness = this.happiness;
-    this.happiness = 0;
-    return `Hey my happiness was ${initialHappiness}, but now it is${this.happiness} `;
+    if (this.happiness - 1 >= 0) {
+        this.happiness -= 1;
+    }
+    if (this.hunger + 1 <= 10) {
+        this.hunger += 1;
+    }
 };
 const pet1 = new Pet("Bobik", 0, 10);
 console.log(pet1);

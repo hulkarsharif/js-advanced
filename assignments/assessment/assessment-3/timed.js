@@ -31,7 +31,6 @@ const library = [
             rating: 4.3
         }
     ],
-
     [
         {
             title: "To Kill a Mockingbird",
@@ -68,19 +67,50 @@ const library = [
     ]
 ];
 
-const info = library.map(function (item) {
-    let totalSum = 0;
-    let averageSum = 0;
-    const sum = {
-        genre: item.genre,
-        averageRating: item.rating,
-        topBook: item.topBook
+const topBook = (books) => {
+    let totalRate = 0;
+    let maxRate = 0;
+    let lastBook = "";
+
+    books.forEach((book) => {
+        totalRate += book.rating;
+
+        if (book.rating > maxRate) {
+            maxRate = book.rating;
+            lastBook = book.title;
+        }
+    });
+    const average = totalRate / books.length;
+
+    return {
+        genre: books[0].genre,
+        average: Number(average.toFixed(2)),
+        topBook: lastBook
     };
-    if (averageRating > totalSum) {
-        averageRating = totalSum;
-        return averageSum / totalSum;
-    }
-});
+};
+const isLibrary = (library) => {
+    return library.map((genreBooks) => {
+        const summary = topBook(genreBooks);
+        return summary;
+    });
+};
+console.log(isLibrary(library));
+
+// //2Input: The function will accept the following four arguments:
+// books: An array of book objects, each having:
+// title: String, the title of the book.
+// author: String, the author's name.
+// genre: String, the genre of the book.
+// rating: Number, the rating of the book on a scale of 1 to 5.
+// publishedYear: Number, the year the book was published.
+// genreFilter: String, the genre to filter by.
+// ratingThreshold: Number, the minimum rating to filter by (inclusive).
+// yearRange: An array of two numbers, the range of publication years to filter by (inclusive).
+// Filtering Criteria: The function must filter books based on the following conditions provided as arguments:
+// Genre: Must match the specified genreFilter.
+// Rating: Must have a rating greater than or equal to ratingThreshold.
+// Publication Year: Must have a publication year within yearRange.
+// Output: Returns a new array of objects, including the title and author of the filtered books.
 
 const books = [
     {
@@ -121,73 +151,20 @@ const books = [
     // ... Additional books ...
 ];
 
-console.log(books);
-
-// //2Input: The function will accept the following four arguments:
-// books: An array of book objects, each having:
-// title: String, the title of the book.
-// author: String, the author's name.
-// genre: String, the genre of the book.
-// rating: Number, the rating of the book on a scale of 1 to 5.
-// publishedYear: Number, the year the book was published.
-// genreFilter: String, the genre to filter by.
-// ratingThreshold: Number, the minimum rating to filter by (inclusive).
-// yearRange: An array of two numbers, the range of publication years to filter by (inclusive).
-// Filtering Criteria: The function must filter books based on the following conditions provided as arguments:
-// Genre: Must match the specified genreFilter.
-// Rating: Must have a rating greater than or equal to ratingThreshold.
-// Publication Year: Must have a publication year within yearRange.
-// Output: Returns a new array of objects, including the title and author of the filtered books.
-
-function filterBooks(books, genreFilter, ratingTresHold, yearRange) {
-    return books.filter((book) => {
-        book.genre === genreFilter &&
-            book.rate >= ratingTresHold &&
-            book.year <= yearRange;
-    });
-    return { title: books.title, author: books.author };
-}
-
-const books = [
-    {
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        genre: "Classics",
-        rating: 4.2,
-        publishedYear: 1925
-    },
-    {
-        title: "War and Peace",
-        author: "Leo Tolstoy",
-        genre: "Classics",
-        rating: 4.6,
-        publishedYear: 1869
-    },
-    {
-        title: "The Odyssey",
-        author: "Homer",
-        genre: "Classics",
-        rating: 4.3,
-        publishedYear: -800
-    },
-    {
-        title: "To Kill a Mockingbird",
-        author: "Harper Lee",
-        genre: "Classics",
-        rating: 4.3,
-        publishedYear: 1960
-    },
-    {
-        title: "Don Quixote",
-        author: "Miguel de Cervantes",
-        genre: "Classics",
-        rating: 4.4,
-        publishedYear: 1605
-    }
-];
-
-// filterBooks(books, "Classics", 4.0, [1500, 2000]);
-// console.log(filterBooks);
+const filterBooks = (books, genreFilter, ratingThreshold, yearRange) => {
+    return books
+        .filter((book) => {
+            return (
+                book.genre === genreFilter &&
+                book.rating <= ratingThreshold &&
+                book.publishedYear >= yearRange[0] &&
+                book.publishedYear <= yearRange[1]
+            );
+        })
+        .map((book) => {
+            return { title: book.title, author: book.author };
+        });
+};
 console.log(filterBooks(books, "Fiction", 4.0, [1900, 2000]));
 
 // //3Create a function named createInventorySystem that encapsulates a private collection of items and provides public methods to manage this collection.
