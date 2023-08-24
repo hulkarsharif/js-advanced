@@ -1,11 +1,10 @@
 //1
-// const name1 = [{ name: "Alice" }, { name: "Bob" }]; //property = "name";
+const name1 = [{ name: "Alice" }, { name: "Bob" }]; //property = "name";
 
-// const firstName = name1.every(function (property) {
-
-//     return property === "name";
-// });
-// console.log(firstName); // true
+const firstName = name1.every(function (property) {
+    return property === "name";
+});
+console.log(firstName); // true
 
 // function checkObj(obj, property) {
 //     return obj.every((name1) => name1[property] !== undefined);
