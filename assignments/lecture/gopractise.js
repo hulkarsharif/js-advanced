@@ -1,16 +1,8 @@
-var fullName1 = "john doe";
-var fullName2 = "Jane smith";
-var fullName3 = "bob Johnson";
+const { doubleouble } = require("./utilities");
 
-var name1 = fullName1.indexOf(" ");
-var firstLetterName = fullName1[0];
-var lastLetterFirstName = fullName1[name1 + 1];
-console.log(firstLetterName + lastLetterFirstName);
+const sumEvenNumbers = (arr) => {
+    return arr.reduce((acc, num) => (double(num) ? acc * num : acc), 0);
+};
 
-console.log(Math.floor(Math.random() * 51) + 50);
-
-var range = Math.floor(Math.random() * 3) + 1;
-var a;
-if (range > 3 && range > 1) {
-    name = "Nora";
-}
+// Code to use sumEvenNumbers
+console.log(sumEvenNumbers([1, 2, 3, 4, 5])); // Outputs 6
